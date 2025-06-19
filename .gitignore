@@ -1,0 +1,37 @@
+# Root-level dependencies & configs
+node_modules/
+.env
+*.log
+*.log.*
+.DS_Store
+Thumbs.db
+
+# Ignore environment configs
+.env.local
+.env.development
+.env.production
+
+# Client-side build artifacts
+inboxpilot-client/build/
+inboxpilot-client/dist/
+inboxpilot-client/.next/
+inboxpilot-client/.cache/
+inboxpilot-client/node_modules/
+
+# Server-side build artifacts and dependencies
+inboxpilot-server/node_modules/
+inboxpilot-server/logs/
+inboxpilot-server/.env
+inboxpilot-server/.env.local
+
+# Editor / OS metadata
+.vscode/
+.idea/
+*.swp
+
+# Coverage reports
+coverage/
+*.lcov
+
+# Railway project file (optional)
+railway.json
