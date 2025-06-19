@@ -93,14 +93,14 @@ app.get('/auth/google/callback', async (req, res) => {
 
   res.cookie('access_token', tokens.access_token, {
     httpOnly: true,
-    secure: false, // Set to true if using production!!!
+    secure: true, // Set to true if using production!!!
     maxAge: 3600000 * 10
 
   });
 
   res.cookie('refresh_token', tokens.refresh_token, {
     httpOnly: true,
-    secure: false, // Set to true if using production!!!
+    secure: true, // Set to true if using production!!!
     maxAge: 3600000 * 24 * 30 // 30 days
   });
   const oauth2 = google.oauth2({ version: 'v2', auth: oauth2Client });
