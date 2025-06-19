@@ -35,4 +35,5 @@ coverage/
 
 # Railway project file (optional)
 railway.json
-/firebase.jsx
+# Ignore Firebase config
+inboxpilot-client/src/firebase.jsx
