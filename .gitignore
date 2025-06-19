@@ -35,3 +35,4 @@ coverage/
 
 # Railway project file (optional)
 railway.json
+/firebase.jsx
