@@ -8,7 +8,7 @@ function Login() {
   const navigate = useNavigate();
 
   const handleLogin = () =>  { 
-  navigate('https://inbox-pilot-production.up.railway.app/auth/google');
+  window.location.href = 'https://inbox-pilot-production.up.railway.app/auth/google';
 
   };
 
