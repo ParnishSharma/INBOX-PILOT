@@ -22,7 +22,7 @@ function Labels() {
   };
 
   useEffect(() => {
-    fetch('http://localhost:5000/labels', {
+    fetch('https://inbox-pilot-production.up.railway.app/labels', {
       credentials: 'include',
     })
       .then((res) => res.json())
@@ -32,7 +32,7 @@ function Labels() {
 
   const fetchEmailsForLabel = (labelId) => {
     setSelectedLabelId(labelId);
-    fetch(`http://localhost:5000/labels/${labelId}/emails`, {
+    fetch(`https://inbox-pilot-production.up.railway.app/labels/${labelId}/emails`, {
       credentials: 'include',
     })
       .then((res) => res.json())

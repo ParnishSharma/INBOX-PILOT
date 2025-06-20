@@ -6,7 +6,7 @@ function Settings() {
   const [rollupFreq, setRollupFreq] = useState('weekly');
 
   useEffect(() => {
-    fetch('http://localhost:5000/me', {
+    fetch('https://inbox-pilot-production.up.railway.app/me', {
       credentials: 'include',
     })
       .then(res => res.json())
@@ -20,7 +20,7 @@ function Settings() {
     const freq = e.target.value;
     setRollupFreq(freq);
 
-    fetch('http://localhost:5000/me/settings', {
+    fetch('https://inbox-pilot-production.up.railway.app/me/settings', {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -31,7 +31,7 @@ function Settings() {
   };
 
   const logout = () => {
-    fetch('http://localhost:5000/logout', {
+    fetch('https://inbox-pilot-production.up.railway.app/logout', {
       credentials: 'include',
     }).then((navigate('/')));
   };

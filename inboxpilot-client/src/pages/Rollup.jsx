@@ -23,7 +23,7 @@ const [selectedEmail, setSelectedEmail] = useState(null);
   };
 
   useEffect(() => {
-    fetch('http://localhost:5000/me/rollup', {
+    fetch('https://inbox-pilot-production.up.railway.app/me/rollup', {
       credentials: 'include',
     })
       .then((res) => res.json())
@@ -38,7 +38,7 @@ const [selectedEmail, setSelectedEmail] = useState(null);
   }, []);
 
   const handleDelete = (id) => {
-    fetch('http://localhost:5000/me/rollup/' + id, {
+    fetch('https://inbox-pilot-production.up.railway.app/me/rollup/' + id, {
       method: 'DELETE',
       credentials: 'include',
     })
@@ -55,7 +55,7 @@ const [selectedEmail, setSelectedEmail] = useState(null);
 
   const fetchLabels = async () => {
     try {
-      const res = await fetch('http://localhost:5000/labels', {
+      const res = await fetch('https://inbox-pilot-production.up.railway.app/labels', {
         credentials: 'include',
       });
       const data = await res.json();
@@ -73,7 +73,7 @@ const handleAssignClick = (mongoId, gmailId) => {
 
   const assignLabel = async (emailId, labelId) => {
     try {
-      const res = await fetch('http://localhost:5000/assign-label', {
+      const res = await fetch('https://inbox-pilot-production.up.railway.app/assign-label', {
         method: 'POST',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
