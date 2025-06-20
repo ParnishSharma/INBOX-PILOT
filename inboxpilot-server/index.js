@@ -18,7 +18,7 @@ const app = express();
 
 app.use(express.json());
 
-const port = 5000;
+
 app.use(cors({
   origin: '*',
   credentials: true
