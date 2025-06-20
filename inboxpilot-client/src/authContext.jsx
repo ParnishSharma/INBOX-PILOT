@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }) => {
       .then((data) => {
         setUser(data);
         setChecking(false);
+console.log("Fetch result", data);
 
       
           navigate("/dashboard"); // 
@@ -26,6 +27,8 @@ export const AuthProvider = ({ children }) => {
       .catch(() => {
         setUser(null);
         setChecking(false);
+        console.error("Auth check failed");
+
         if (window.location.pathname !== "/") {
           navigate("/"); // redirect to login
         }
