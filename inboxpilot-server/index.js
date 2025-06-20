@@ -10,6 +10,8 @@ const Rollup = require('./models/Rollup');
 const session = require('express-session');
 const { google } = require('googleapis');
 const cheerio = require('cheerio')
+const MongoStore = require('connect-mongo');
+
 
 dotenv.config();
 const app = express();
@@ -26,19 +28,17 @@ app.use(cors({
 
 app.use(cookieParser());
 
-app.use(
-  session({
-    secret: process.env.INBOXPILOT_SECRET, // use env var in prod!
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      secure: true, // set to true in production with HTTPS
-      httpOnly: true,
-      maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
-    },
-  })
-);
-
+app.use(session({
+  secret: process.env.INBOXPILOT_SECRET,
+  resave: false,
+  saveUninitialized: true,
+  store: MongoStore.create({ mongoUrl: process.env.MONGO_URI }), 
+  cookie: {
+    secure: true,
+    httpOnly: true,
+    maxAge: 1000 * 60 * 60 * 24 * 7,
+  },
+}));
 
 mongoose.connect(process.env.MONGO_URI , {
   useNewUrlParser: true,
