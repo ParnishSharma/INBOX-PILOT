@@ -21,8 +21,9 @@ export const AuthProvider = ({ children }) => {
         setChecking(false);
 console.log("Fetch result", data);
 
-      
-          navigate("/dashboard"); // 
+         if (window.location.pathname === "/") {
+        navigate("/dashboard");
+      }
       })
       .catch(() => {
         setUser(null);
