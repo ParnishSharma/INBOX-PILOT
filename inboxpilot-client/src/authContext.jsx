@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch("http://localhost:5000/me", {
+    fetch("https://inbox-pilot-production.up.railway.app/me", {
       credentials: "include",
     })
       .then((res) => {
@@ -20,9 +20,8 @@ export const AuthProvider = ({ children }) => {
         setUser(data);
         setChecking(false);
 
-        if (window.location.pathname === "/") {
-          navigate("/dashboard"); // ✅ only redirect if landed on "/"
-        }
+      
+          navigate("/dashboard"); // 
       })
       .catch(() => {
         setUser(null);
