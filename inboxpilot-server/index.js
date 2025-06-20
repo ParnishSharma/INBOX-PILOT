@@ -88,26 +88,17 @@ app.get('/auth/google/callback', async (req, res) => {
   const { tokens } = await oauth2Client.getToken(code);
   oauth2Client.setCredentials(tokens);
 
-  // For now, just log and confirm it worked
-  console.log("🔑 Tokens: ", tokens);
+  
 
-  res.cookie('access_token', tokens.access_token, {
-    httpOnly: true,
-    secure: true, // Set to true if using production!!!
-    sameSite: 'none',
-    maxAge: 3600000 * 10
 
-  });
 
-  res.cookie('refresh_token', tokens.refresh_token, {
-    httpOnly: true,
-    secure: true, // Set to true if using production!!!
-    sameSite: 'none',
-    maxAge: 3600000 * 24 * 30 // 30 days
-  });
   const oauth2 = google.oauth2({ version: 'v2', auth: oauth2Client });
   const { data: profile } = await oauth2.userinfo.get();
   const email = profile.email;
+
+  req.session.email = email;
+req.session.accessToken = tokens.access_token;
+req.session.refreshToken = tokens.refresh_token;
 
   await User.findOneAndUpdate(
     { email },
@@ -124,12 +115,12 @@ app.get('/auth/google/callback', async (req, res) => {
 });
 
 app.get('/me', async (req, res) => {
-  const client = getAuthenticatedClient(req);
-  if (!client) return res.status(401).json({ error: 'Unauthorized' });
-
+ if (!req.session?.email) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
   res.json({
     user: {
-      email: req.session?.email || 'user@demo.com',
+      email: req.session.email ,
     },
     rollupFreq: req.session?.rollupFreq || 'weekly',
   });
