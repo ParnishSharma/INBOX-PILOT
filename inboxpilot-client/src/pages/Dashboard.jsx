@@ -19,7 +19,7 @@ function Dashboard() {
   };
 
   useEffect(() => {
-    fetch('http://localhost:5000/me/emails', {
+    fetch('https://inbox-pilot-production.up.railway.app/me/emails', {
       credentials: 'include',
     })
       .then((res) => res.json())
@@ -35,7 +35,7 @@ function Dashboard() {
   }, []);
 
   const handleRollup = (email) => {
-    fetch('http://localhost:5000/me/rollup', {
+    fetch('https://inbox-pilot-production.up.railway.app/me/rollup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
