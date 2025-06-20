@@ -20,7 +20,9 @@ app.use(express.json());
 
 
 app.use(cors({
-  origin: process.env.FRONTEND_URL,
+  origin:[ process.env.FRONTEND_URL,
+  'http://localhost:5173'
+],
   credentials: true
 }));
 
@@ -88,10 +90,6 @@ app.get('/auth/google/callback', async (req, res) => {
   const { tokens } = await oauth2Client.getToken(code);
   oauth2Client.setCredentials(tokens);
 
-  
-
-
-
   const oauth2 = google.oauth2({ version: 'v2', auth: oauth2Client });
   const { data: profile } = await oauth2.userinfo.get();
   const email = profile.email;
@@ -115,9 +113,16 @@ req.session.refreshToken = tokens.refresh_token;
 });
 
 app.get('/me', async (req, res) => {
- if (!req.session?.email) {
+  console.log('Session check:', req.session);
+
+  if (!req.session.accessToken) return res.status(401).json({ error: 'Token missing' });
+
+  oauth2Client.setCredentials({ access_token: req.session.accessToken });
+
+  if (!req.session?.email) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
+
   res.json({
     user: {
       email: req.session.email ,
@@ -152,7 +157,7 @@ app.get('/me/emails', async (req, res) => {
   try {
     const response = await gmail.users.messages.list({
       userId: 'me',
-      maxResults: 50,
+      maxResults: 100,
       q: '', // you can add filters here
     });
 
