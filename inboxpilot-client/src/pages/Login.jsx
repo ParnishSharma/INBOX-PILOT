@@ -7,10 +7,19 @@ function Login() {
 
   const navigate = useNavigate();
 
-  const handleLogin = () =>  { 
-  window.location.href = 'https://inbox-pilot-production.up.railway.app/auth/google';
+const handleLogin = () => {
+  const popup = window.open(
+    'https://inbox-pilot-production.up.railway.app/auth/google',
+    'Login with Google',
+    'width=500,height=600'
+  );
 
-  };
+  window.addEventListener('message', (event) => {
+    if (event.data === 'authenticated') {
+      window.location.href = '/dashboard';
+    }
+  });
+};
 
   return (
       

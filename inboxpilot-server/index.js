@@ -20,7 +20,7 @@ app.use(express.json());
 
 
 app.use(cors({
-  origin: ['https://inbox-pilot-three.vercel.app'],
+  origin: 'https://inbox-pilot-three.vercel.app',
   credentials: true
 }));
 
@@ -107,8 +107,12 @@ req.session.refreshToken = tokens.refresh_token;
     { upsert: true, new: true }
   );
 
-  // Redirect back to frontend
-  res.redirect(`${process.env.FRONTEND_URL}/auth-success`);
+  res.send(`
+  <script>
+    window.opener.postMessage("authenticated", "*");
+    window.close();
+  </script>
+`);
 });
 
 app.get('/me', async (req, res) => {

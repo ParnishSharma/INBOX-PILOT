@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import { useAuth } from "./authContext";
 import Layout from "./Components/Layout";
+import AuthSuccess from "./pages/AuthSuccess";
 import Dashboard from "./pages/Dashboard";
 import Labels from "./pages/Labels";
 import Login from "./pages/Login";
@@ -14,6 +15,7 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Login />} />
+      <Route path="/auth-success" element={<AuthSuccess />} />
       <Route path="/" element={<PrivateRoute user={user}><Layout /></PrivateRoute>}>
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="rollup" element={<Rollup />} />
