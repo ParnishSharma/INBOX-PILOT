@@ -14,12 +14,16 @@ const handleLogin = () => {
     'width=500,height=600'
   );
 
-  window.addEventListener('message', (event) => {
-    if (event.data === 'authenticated') {
+window.addEventListener('message', (event) => {
+  if (event.data === 'authenticated') {
+    // Give browser a moment to store the cookie
+    setTimeout(() => {
       window.location.href = '/dashboard';
-    }
-  });
+    }, 500); // 500ms delay
+  }
+}, { once: true });
 };
+
 
   return (
       

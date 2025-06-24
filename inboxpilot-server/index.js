@@ -28,7 +28,7 @@ app.use(cors({
 
 
 app.use(cookieParser());
-
+app.set('trust proxy', 1);
 app.use(session({
   secret: process.env.INBOXPILOT_SECRET,
   resave: false,
@@ -97,6 +97,8 @@ app.get('/auth/google/callback', async (req, res) => {
 req.session.accessToken = tokens.access_token;
 req.session.refreshToken = tokens.refresh_token;
 
+console.log("🚀 SESSION after login:", req.session);
+
   await User.findOneAndUpdate(
     { email },
     {
@@ -125,6 +127,8 @@ app.get('/me', async (req, res) => {
   if (!req.session?.email) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
+  console.log("👀 SESSION inside /me:", req.session);
+
 
   res.json({
     user: {
