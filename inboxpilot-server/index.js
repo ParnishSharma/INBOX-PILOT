@@ -20,11 +20,10 @@ app.use(express.json());
 
 
 app.use(cors({
-  origin:[ process.env.FRONTEND_URL,
-  'http://localhost:5173'
-],
+  origin: ['https://inbox-pilot-three.vercel.app'],
   credentials: true
 }));
+
 
 
 
@@ -109,7 +108,7 @@ req.session.refreshToken = tokens.refresh_token;
   );
 
   // Redirect back to frontend
-  res.redirect(`${process.env.FRONTEND_URL}/dashboard`);
+  res.redirect(`${process.env.FRONTEND_URL}/auth-success`);
 });
 
 app.get('/me', async (req, res) => {
